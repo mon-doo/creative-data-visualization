@@ -30,6 +30,12 @@ dat2 <- xmlToDataFrame(dat, nodes = procedure_list)
 
 Since this failed, I had to just count by hand from the pdf doc of my health summary, which was tedious, but honestly faster than using R considering my low proficiency LOL. I will try to include images of the parts of the pdf I counted from, so that you can see what data I used. If they don't render, they are in the repo.
 
+![](vax.PNG)
+
+![](procedures.PNG)
+
+![](procedures2.PNG)
+
 ![](https://github.com/mon-doo/creative-data-visualization/blob/main/vax.PNG)
 
 ![](https://github.com/mon-doo/creative-data-visualization/blob/main/procedures.PNG)
