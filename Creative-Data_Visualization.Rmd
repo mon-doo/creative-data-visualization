@@ -1,0 +1,39 @@
+---
+title: "Creative-Data-Visualization"
+author: "Monica"
+date: "2025-05-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Data transformation
+
+For this assignment, I downloaded a health summary of my own health data from MD Anderson. This yielded me an XML file with records of all of my summarized data, including procedures, immunizations, my care team, diagnosed issues, etc.
+
+```{r}
+library(xml2)
+library(XML)
+dat <- read_xml("https://raw.githubusercontent.com/mon-doo/creative-data-visualization/refs/heads/main/DOC0002.XML")
+dat <- xmlParse(dat, useInternalNodes=TRUE, 
+                addAttributeNamespaces=TRUE)
+```
+
+Ideally, once this xml data is loaded, it can be transformed to a data frame where I can easily extract the data I want to visualize. I first parsed the data, which transforms it to a form that can be easily used by other xml functions. Then, I used the xmlToDataFrame function to try and convert it to a data frame. This is done by giving the function a list of nodes to sort through and turn into a table. This function sadly did not work for me, and no matter what I tried, I could not get R to properly identify any of the nodes :(.
+
+```{r}
+procedure_list <- getNodeSet(dat, "//ClinicalDocument/component/structuredBody/component/section/entry/organizer/component/act")
+dat2 <- xmlToDataFrame(dat, nodes = procedure_list)
+```
+
+Since this failed, I had to just count by hand from the pdf doc of my health summary, which was tedious, but honestly faster than using R considering my low proficiency LOL. I will try to include images of the parts of the pdf I counted from, so that you can see what data I used. If they don't render, they are in the repo.
+
+![](https://github.com/mon-doo/creative-data-visualization/blob/main/vax.PNG)
+
+![](https://github.com/mon-doo/creative-data-visualization/blob/main/procedures.PNG)
+
+![](https://github.com/mon-doo/creative-data-visualization/blob/main/procedures2.PNG)
+
+I used my vaccination and procedure data to find how many times I received a shot, a bone marrow biopsy or aspiration, and spinal tap. I added from memory what wasn't included in the health summary, like pic line placements.
